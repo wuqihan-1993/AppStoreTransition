@@ -29,7 +29,7 @@
         <!--today-->
         <scene sceneID="jdn-7k-42E">
             <objects>
-                <viewController id="ag6-1D-D31" customClass="ViewController" customModule="AppStoreTransition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ag6-1D-D31" customClass="StoreViewController" customModule="AppStoreTransition" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LQ8-G2-UwD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

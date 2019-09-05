@@ -8,24 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		E3EDDAE52320975E00AF6219 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAE42320975E00AF6219 /* AppDelegate.swift */; };
-		E3EDDAE72320975E00AF6219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAE62320975E00AF6219 /* ViewController.swift */; };
+		E3EDDAE72320975E00AF6219 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAE62320975E00AF6219 /* StoreViewController.swift */; };
 		E3EDDAEA2320975E00AF6219 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3EDDAE82320975E00AF6219 /* Main.storyboard */; };
 		E3EDDAEC2320975E00AF6219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3EDDAEB2320975E00AF6219 /* Assets.xcassets */; };
 		E3EDDAEF2320975E00AF6219 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3EDDAED2320975E00AF6219 /* LaunchScreen.storyboard */; };
-		E3EDDAF72320976E00AF6219 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAF62320976E00AF6219 /* CustomTableViewCell.swift */; };
-		E3EDDAF92320977700AF6219 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAF82320977700AF6219 /* DetailViewController.swift */; };
+		E3EDDAF72320976E00AF6219 /* StoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAF62320976E00AF6219 /* StoreCell.swift */; };
+		E3EDDAFB2320BA3500AF6219 /* StoreDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAFA2320BA3500AF6219 /* StoreDetailHeaderView.swift */; };
+		E3EDDAFF2320C88300AF6219 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDAFE2320C88300AF6219 /* StoreDetailViewController.swift */; };
+		E3EDDB042320C9D000AF6219 /* StoreItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB032320C9D000AF6219 /* StoreItemModel.swift */; };
+		E3EDDB072320EE0800AF6219 /* AppStoreAnimatedTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB062320EE0800AF6219 /* AppStoreAnimatedTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E3EDDAE12320975E00AF6219 /* AppStoreTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStoreTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3EDDAE42320975E00AF6219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E3EDDAE62320975E00AF6219 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E3EDDAE62320975E00AF6219 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		E3EDDAE92320975E00AF6219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E3EDDAEB2320975E00AF6219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3EDDAEE2320975E00AF6219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3EDDAF02320975E00AF6219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E3EDDAF62320976E00AF6219 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		E3EDDAF82320977700AF6219 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E3EDDAF62320976E00AF6219 /* StoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCell.swift; sourceTree = "<group>"; };
+		E3EDDAFA2320BA3500AF6219 /* StoreDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailHeaderView.swift; sourceTree = "<group>"; };
+		E3EDDAFE2320C88300AF6219 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
+		E3EDDB032320C9D000AF6219 /* StoreItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreItemModel.swift; sourceTree = "<group>"; };
+		E3EDDB062320EE0800AF6219 /* AppStoreAnimatedTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreAnimatedTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,15 +65,50 @@
 			isa = PBXGroup;
 			children = (
 				E3EDDAE42320975E00AF6219 /* AppDelegate.swift */,
-				E3EDDAE62320975E00AF6219 /* ViewController.swift */,
-				E3EDDAF62320976E00AF6219 /* CustomTableViewCell.swift */,
-				E3EDDAF82320977700AF6219 /* DetailViewController.swift */,
+				E3EDDB052320EDAF00AF6219 /* Transition */,
+				E3EDDB012320C89900AF6219 /* Controller */,
+				E3EDDB022320C8A000AF6219 /* Model */,
+				E3EDDB002320C89100AF6219 /* View */,
 				E3EDDAE82320975E00AF6219 /* Main.storyboard */,
 				E3EDDAEB2320975E00AF6219 /* Assets.xcassets */,
 				E3EDDAED2320975E00AF6219 /* LaunchScreen.storyboard */,
 				E3EDDAF02320975E00AF6219 /* Info.plist */,
 			);
 			path = AppStoreTransition;
+			sourceTree = "<group>";
+		};
+		E3EDDB002320C89100AF6219 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDDAF62320976E00AF6219 /* StoreCell.swift */,
+				E3EDDAFA2320BA3500AF6219 /* StoreDetailHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3EDDB012320C89900AF6219 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDDAE62320975E00AF6219 /* StoreViewController.swift */,
+				E3EDDAFE2320C88300AF6219 /* StoreDetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E3EDDB022320C8A000AF6219 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDDB032320C9D000AF6219 /* StoreItemModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E3EDDB052320EDAF00AF6219 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				E3EDDB062320EE0800AF6219 /* AppStoreAnimatedTransition.swift */,
+			);
+			path = Transition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +182,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3EDDAF72320976E00AF6219 /* CustomTableViewCell.swift in Sources */,
-				E3EDDAE72320975E00AF6219 /* ViewController.swift in Sources */,
+				E3EDDAF72320976E00AF6219 /* StoreCell.swift in Sources */,
+				E3EDDAE72320975E00AF6219 /* StoreViewController.swift in Sources */,
 				E3EDDAE52320975E00AF6219 /* AppDelegate.swift in Sources */,
-				E3EDDAF92320977700AF6219 /* DetailViewController.swift in Sources */,
+				E3EDDB072320EE0800AF6219 /* AppStoreAnimatedTransition.swift in Sources */,
+				E3EDDAFF2320C88300AF6219 /* StoreDetailViewController.swift in Sources */,
+				E3EDDAFB2320BA3500AF6219 /* StoreDetailHeaderView.swift in Sources */,
+				E3EDDB042320C9D000AF6219 /* StoreItemModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
-    
-    var index: Int = 0 {
+class StoreCell: UITableViewCell {
+
+    var item: StoreItemModel! {
         didSet {
-            bgImageView.image = UIImage(named: "image\(index)")
-            titleLabel.text = "\(index).titletitletitletitletitletitle"
-            subTitleLabel.text = "\(index).subTitlesubTitlesubTitlesubTitlesubTitle"
+            titleLabel.text = item.title
+            subTitleLabel.text = item.subTitle
+            bgImageView.image = UIImage(named: item.imageName)
         }
     }
     
@@ -36,8 +36,8 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor.lightGray
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textColor = UIColor.white
         label.numberOfLines = 0
         return label
     }()
@@ -76,13 +76,13 @@ class CustomTableViewCell: UITableViewCell {
         contentView.addSubview(bgImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(subTitleLabel)
-        
+
         bgImageView.translatesAutoresizingMaskIntoConstraints = false
         bgImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         bgImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         bgImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         bgImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
@@ -92,6 +92,13 @@ class CustomTableViewCell: UITableViewCell {
         subTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
         subTitleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
         subTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+    }
+    
+    func copeView() -> UIView {
+        let cell = StoreCell.init()
+        cell.item = item
+        cell.frame = self.frame
+        return cell.contentView
     }
 
 }
