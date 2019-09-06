@@ -10,6 +10,14 @@ import UIKit
 
 class StoreDetailViewController: UIViewController {
     
+    var statusBarHidden = false {
+        didSet {
+            UIView.animate(withDuration: 0.2) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+    }
+    
     private let storeItem: StoreItemModel
     
     private lazy var closeButton: UIButton = {
@@ -22,19 +30,24 @@ class StoreDetailViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: UIScreen.main.bounds)
         scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.backgroundColor = UIColor.white
         return scrollView
     }()
     
-    private lazy var headerView: StoreDetailHeaderView = {
-        let headerView = StoreDetailHeaderView()
+    lazy var headerView: StoreDetailHeaderView = {
+        let headerView = StoreDetailHeaderView(frame: CGRect.zero)
         headerView.item = self.storeItem
         return headerView
     }()
     
-    private lazy var contentLabel: UILabel = {
+    lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = self.storeItem.content
+        label.backgroundColor = UIColor.white
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.contentMode = .center
+        
         return label
     }()
     
@@ -52,9 +65,23 @@ class StoreDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = UIColor.white
         setupUI()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarHidden = true
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    override var prefersStatusBarHidden: Bool {
+        return statusBarHidden
     }
     
     @objc private func closeButtonClick() {
@@ -62,39 +89,33 @@ class StoreDetailViewController: UIViewController {
     }
     
     private func setupUI() {
-    
+        
         view.addSubview(scrollView)
         view.addSubview(closeButton)
         scrollView.addSubview(headerView)
         scrollView.addSubview(contentLabel)
-        scrollView.addSubview(contentLabel)
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
-    
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        headerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        headerView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width*1.45).isActive = true
-        headerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(64)
+            make.right.equalToSuperview().offset(-20)
+            make.width.height.equalTo(36)
+        }
         
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 36).isActive = true
-        contentLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
-        contentLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
-        contentLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -36).isActive = true
+        headerView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(headerView.snp.width).multipliedBy(1.45)
+            make.centerX.equalToSuperview()
+        }
         
-    }
+        contentLabel.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom).offset(30)
+        }
 
+    }
 
 }

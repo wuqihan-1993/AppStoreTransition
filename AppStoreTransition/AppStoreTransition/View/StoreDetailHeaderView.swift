@@ -18,7 +18,7 @@ class StoreDetailHeaderView: UIView {
         }
     }
     
-    private lazy var bgImageView: UIImageView = {
+    lazy var bgImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.layer.masksToBounds = true
@@ -55,21 +55,20 @@ class StoreDetailHeaderView: UIView {
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         
-        bgImageView.translatesAutoresizingMaskIntoConstraints = false
-        bgImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        bgImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        bgImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        bgImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        bgImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 64).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
-        
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        subTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
-        subTitleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(64)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+        }
+        subTitleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.bottom.right.equalToSuperview().offset(-20)
+        }
+
     }
     
 }

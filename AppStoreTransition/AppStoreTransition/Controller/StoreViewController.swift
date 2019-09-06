@@ -10,6 +10,14 @@ import UIKit
 
 class StoreViewController: UIViewController {
     
+    var statusBarHidden = false {
+        didSet {
+            UIView.animate(withDuration: 0.2) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+    }
+    
     private var dataList = [StoreItemModel]()
     private lazy var animatedTransition = AppStoreAnimatedTransition()
     
@@ -28,8 +36,24 @@ class StoreViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+       
         setupUI()
         setupData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarHidden = false
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    override var prefersStatusBarHidden: Bool {
+        return false
     }
 
 }
@@ -62,17 +86,26 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#function)
+        guard let cell = tableView.cellForRow(at: indexPath) as? StoreCell else {
+            return
+        }
+        UIView.animate(withDuration: 0.2) {
+            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        }
         DispatchQueue.main.async {
-            let cell = tableView.cellForRow(at: indexPath)
-            cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            
+            cell.bgImageView.isHidden = true
             let vc = StoreDetailViewController(storeItem: self.dataList[indexPath.section])
             vc.transitioningDelegate = self
-            self.animatedTransition.itemCell = tableView.cellForRow(at: indexPath) as! StoreCell
-            self.present(vc, animated: true, completion: nil)
+            self.animatedTransition.itemCell = cell
+            self.present(vc, animated: true, completion: {
+                cell.bgImageView.isHidden = false
+            })
         }
     }
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        print("should")
+        print(#function)
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.2) {
             cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -80,7 +113,7 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         return true
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        print("didHighlightRowAt")
+        print(#function)
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.2) {
             cell?.transform = CGAffineTransform(scaleX: 1, y: 1)

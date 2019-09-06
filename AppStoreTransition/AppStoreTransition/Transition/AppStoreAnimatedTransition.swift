@@ -40,28 +40,45 @@ extension AppStoreAnimatedTransition {
     private func showAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         let fromVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
-        let toVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+        let toVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! StoreDetailViewController
         
         let containerView = transitionContext.containerView
         
-        let newItemCell = itemCell.copeView()
-        let cellNewRect = containerView.convert(itemCell.frame, from: itemCell.superview)
-        newItemCell.frame = cellNewRect
+        let cellNewRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
+        let snapShotView = StoreCellSnapshotView(storeItem: itemCell.item, frame: cellNewRect)
+        snapShotView.layer.masksToBounds = true
+        containerView.addSubview(toVc.view)
+        containerView.addSubview(snapShotView)
         
         
-//        newItemCell.frame = cellNewRect
-        containerView.addSubview(toVc!.view)
-        toVc?.view.alpha = 0
-        containerView.addSubview(newItemCell)
+        let anim1 = CABasicAnimation(keyPath: "cornerRadius")
+        anim1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        anim1.fromValue = 10
+        anim1.toValue = 0
+        anim1.duration = 0.8
+        anim1.isRemovedOnCompletion = false 
+        snapShotView.bgImageView.layer.add(anim1, forKey: "cornerRadius")
         
+        toVc.headerView.isHidden = true
+        toVc.view.frame = cellNewRect
+        toVc.view.layoutIfNeeded()
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: UIView.AnimationOptions.curveLinear, animations: {
-            newItemCell.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 1.45)
-            toVc?.view.alpha = 1
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveLinear, animations: {
+            
+            snapShotView.updateAnimation()
+            let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
+            tabBar.frame.origin.y = UIScreen.main.bounds.height
+            toVc.view.frame = UIScreen.main.bounds
+            toVc.view.layoutIfNeeded()
         }) { (isComplete) in
             transitionContext.completeTransition(true)
-            newItemCell.removeFromSuperview()
+            snapShotView.removeFromSuperview()
+            self.itemCell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            toVc.headerView.isHidden = false
         }
+        
+        
+        
         
 
 //        UIView.animateKeyframes(withDuration: <#T##TimeInterval#>, delay: <#T##TimeInterval#>, options: <#T##UIView.KeyframeAnimationOptions#>, animations: <#T##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
