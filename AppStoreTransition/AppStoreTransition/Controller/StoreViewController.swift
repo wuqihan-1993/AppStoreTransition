@@ -86,7 +86,7 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+//        print(#function)
         guard let cell = tableView.cellForRow(at: indexPath) as? StoreCell else {
             return
         }
@@ -97,7 +97,9 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
                 cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             }, completion: { (_) in
                 let vc = StoreDetailViewController(storeItem: self.dataList[indexPath.section])
+                
                 vc.transitioningDelegate = self
+                
                 self.animatedTransition.itemCell = cell
                 self.present(vc, animated: true, completion: {
                     cell.bgImageView.alpha = 1
@@ -108,7 +110,7 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        print(#function)
+//        print(#function)
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.2) {
             cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -116,7 +118,7 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         return true
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        print(#function)
+//        print(#function)
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.2) {
             cell?.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -149,3 +151,22 @@ extension StoreViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+//extension StoreViewController {
+//    @objc private func  edgePanGestureAction(_ edgePanGesture: UIScreenEdgePanGestureRecognizer) {
+//        var progress = edgePanGesture.translation(in: view).x / view.bounds.width
+//        print(progress)
+//        switch edgePanGesture.state {
+//        case .began:
+//            animatedTransition.percentDrivenTransition = UIPercentDrivenInteractiveTransition()
+//            dismiss(animated: true, completion: nil)
+//            break
+//        case .changed:
+//            break
+//        case .cancelled,.ended:
+//            break
+//        default:
+//            break
+//        }
+//    }
+//}
+//

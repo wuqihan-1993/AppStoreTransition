@@ -18,6 +18,8 @@ class StoreDetailViewController: UIViewController {
         }
     }
     
+    private var isDismiss = false
+    
     private let storeItem: StoreItemModel
     
     private lazy var closeButton: UIButton = {
@@ -43,7 +45,7 @@ class StoreDetailViewController: UIViewController {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = self.storeItem.content
+        label.text = "totototot" + self.storeItem.content
         label.backgroundColor = UIColor.white
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.contentMode = .center
@@ -65,10 +67,15 @@ class StoreDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        view.backgroundColor = UIColor.orange
         setupUI()
         
+        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePanGestureAction(_:)))
+        edgePanGesture.edges = UIRectEdge.left
+        scrollView.addGestureRecognizer(edgePanGesture)
+        
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         statusBarHidden = true
@@ -89,6 +96,9 @@ class StoreDetailViewController: UIViewController {
     }
     
     private func setupUI() {
+        
+        view.layer.masksToBounds = true
+        view.contentMode = .center
         
         view.addSubview(scrollView)
         view.addSubview(closeButton)
@@ -118,4 +128,51 @@ class StoreDetailViewController: UIViewController {
 
     }
 
+}
+
+extension StoreDetailViewController {
+ 
+    @objc private func  edgePanGestureAction(_ edgePanGesture: UIScreenEdgePanGestureRecognizer) {
+        let progress = edgePanGesture.translation(in: view).x / view.bounds.width
+        let minScale: CGFloat = 0.83
+        let scale = 1-progress*0.5
+        if scale >= minScale {
+          
+            self.view.transform = CGAffineTransform(scaleX: scale, y: scale)
+            let cornerRadius = (1.0-scale)/(1-minScale)*20
+            self.view.layer.cornerRadius = cornerRadius
+           
+        }else {
+            edgePanGesture.isEnabled = false
+            self.view.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*minScale, height: UIScreen.main.bounds.height*minScale)
+            self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
+            self.view.layoutIfNeeded()
+            print("layoutIfNeeded")
+            print("\(edgePanGesture.state.rawValue)")
+            isDismiss = true
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        switch edgePanGesture.state {
+        case .began:
+            break
+        case .changed:
+            break
+        case .cancelled,.ended:
+            if !isDismiss {
+                print("CGAffineTransform.identity")
+                UIView.animate(withDuration: 0.2) {
+                    self.view.transform = CGAffineTransform.identity
+                }
+            }else {
+                print("dismiss")
+                isDismiss = true
+            }
+        default:
+            break
+        }
+        
+    }
+    
 }
