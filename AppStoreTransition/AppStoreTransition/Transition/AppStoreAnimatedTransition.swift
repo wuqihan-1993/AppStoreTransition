@@ -12,6 +12,8 @@ class AppStoreAnimatedTransition: NSObject {
     
     var itemCell = StoreCell()
     
+    private var snapshotView:StoreCellSnapshotView!
+    
     enum TransitionType {
         case show
         case dismiss
@@ -39,16 +41,15 @@ extension AppStoreAnimatedTransition: UIViewControllerAnimatedTransitioning {
 extension AppStoreAnimatedTransition {
     private func showAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        let fromVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         let toVc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! StoreDetailViewController
         
         let containerView = transitionContext.containerView
         
         let cellNewRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
-        let snapShotView = StoreCellSnapshotView(storeItem: itemCell.item, frame: cellNewRect)
-        snapShotView.layer.masksToBounds = true
+        snapshotView = StoreCellSnapshotView(storeItem: itemCell.item, frame: cellNewRect)
+        snapshotView.layer.masksToBounds = true
         containerView.addSubview(toVc.view)
-        containerView.addSubview(snapShotView)
+        containerView.addSubview(snapshotView)
         
         
         let anim1 = CABasicAnimation(keyPath: "cornerRadius")
@@ -57,22 +58,22 @@ extension AppStoreAnimatedTransition {
         anim1.toValue = 0
         anim1.duration = 0.8
         anim1.isRemovedOnCompletion = false 
-        snapShotView.bgImageView.layer.add(anim1, forKey: "cornerRadius")
+        snapshotView.bgImageView.layer.add(anim1, forKey: "cornerRadius")
         
         toVc.headerView.isHidden = true
         toVc.view.frame = cellNewRect
         toVc.view.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveLinear, animations: {
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
             
-            snapShotView.updateAnimation()
+            self.snapshotView.updateAnimation()
             let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
             tabBar.frame.origin.y = UIScreen.main.bounds.height
             toVc.view.frame = UIScreen.main.bounds
             toVc.view.layoutIfNeeded()
         }) { (isComplete) in
             transitionContext.completeTransition(true)
-            snapShotView.removeFromSuperview()
+            self.snapshotView.removeFromSuperview()
             self.itemCell.transform = CGAffineTransform(scaleX: 1, y: 1)
             toVc.headerView.isHidden = false
         }
@@ -113,18 +114,39 @@ extension AppStoreAnimatedTransition {
     }
     
     private func dismissAnimateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let fromVc = transitionContext.viewController(forKey: .from)
-        let toVc = transitionContext.viewController(forKey: .to)
-        //        let containerView = transitionContext.containerView
         
-        UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: .calculationModeLinear, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0, animations: {
-                toVc?.view.transform = CGAffineTransform.identity
-                fromVc?.view.transform = CGAffineTransform.identity
-            })
-        }) { (_) in
-            print("delete complete")
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        guard let fromVc = transitionContext.viewController(forKey: .from) as? StoreDetailViewController,
+            let toVc = transitionContext.viewController(forKey: .to) else {
+            transitionContext.completeTransition(true)
+            return
         }
+        
+        let containerView = transitionContext.containerView
+        
+        fromVc.headerView.isHidden = true
+        containerView.addSubview(toVc.view)
+        containerView.addSubview(fromVc.view)
+        containerView.addSubview(snapshotView)
+        
+        itemCell.isHidden = true
+        
+        let cellToRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
+        
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            
+            self.snapshotView.frame = cellToRect
+            self.snapshotView.dismissAnimation()
+            fromVc.view.frame = cellToRect
+            fromVc.view.layoutIfNeeded()
+            
+            let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
+            tabBar.frame.origin.y = UIScreen.main.bounds.height - tabBar.bounds.height
+            
+        }) { (isComplete) in
+            
+            transitionContext.completeTransition(true)
+            self.itemCell.isHidden = false
+        }
+       
     }
 }

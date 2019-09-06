@@ -25,7 +25,7 @@ class StoreCellSnapshotView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 36)
         label.textColor = UIColor.white
         label.numberOfLines = 0
-        label.frame.origin = CGPoint(x: 20, y: 20)
+        label.frame.origin = CGPoint(x: 20, y: 10)
         return label
     }()
     
@@ -75,6 +75,13 @@ class StoreCellSnapshotView: UIView {
         subTitleLabel.frame.origin = CGPoint(x: 20, y: bounds.height-20-21.5)
         closeButton.frame.origin = CGPoint(x: bounds.width-36-20, y: 64)
         closeButton.alpha = 1
+    }
+    
+    func dismissAnimation() {
+        closeButton.alpha = 0
+        closeButton.frame.origin = CGPoint(x: bounds.width-36-20, y: 20)
+        titleLabel.frame.origin = CGPoint(x: 20, y: 10)
+        subTitleLabel.frame.origin = CGPoint(x: 20, y: bounds.height-20-21.5)
     }
 
 }
