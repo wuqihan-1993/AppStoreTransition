@@ -57,7 +57,7 @@ extension AppStoreAnimatedTransition {
         anim1.fromValue = 10
         anim1.toValue = 0
         anim1.duration = 0.8
-        anim1.isRemovedOnCompletion = false 
+        anim1.isRemovedOnCompletion = false
         snapshotView.bgImageView.layer.add(anim1, forKey: "cornerRadius")
         
         toVc.headerView.isHidden = true

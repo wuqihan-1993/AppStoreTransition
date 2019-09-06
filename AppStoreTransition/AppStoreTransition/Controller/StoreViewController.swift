@@ -90,18 +90,21 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? StoreCell else {
             return
         }
-        UIView.animate(withDuration: 0.2) {
-            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        }
+        
         DispatchQueue.main.async {
-            
-            cell.bgImageView.isHidden = true
-            let vc = StoreDetailViewController(storeItem: self.dataList[indexPath.section])
-            vc.transitioningDelegate = self
-            self.animatedTransition.itemCell = cell
-            self.present(vc, animated: true, completion: {
-                cell.bgImageView.isHidden = false
+        
+            UIView.animate(withDuration: 0.1, animations: {
+                cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            }, completion: { (_) in
+                let vc = StoreDetailViewController(storeItem: self.dataList[indexPath.section])
+                vc.transitioningDelegate = self
+                self.animatedTransition.itemCell = cell
+                self.present(vc, animated: true, completion: {
+                    cell.bgImageView.alpha = 1
+                })
             })
+
+            
         }
     }
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
