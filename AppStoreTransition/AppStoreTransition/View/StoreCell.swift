@@ -24,6 +24,7 @@ class StoreCell: UITableViewCell {
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
+        imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth,UIView.AutoresizingMask.flexibleHeight]
         return imageView
     }()
     
@@ -67,8 +68,8 @@ class StoreCell: UITableViewCell {
         selectionStyle = .none
         
         contentView.addSubview(bgImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subTitleLabel)
+        bgImageView.addSubview(titleLabel)
+        bgImageView.addSubview(subTitleLabel)
         
         bgImageView.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
@@ -78,13 +79,13 @@ class StoreCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
         }
 
         subTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-20)
         }
 

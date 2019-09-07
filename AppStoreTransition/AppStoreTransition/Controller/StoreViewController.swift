@@ -92,36 +92,37 @@ extension StoreViewController: UITableViewDataSource,UITableViewDelegate {
         }
         
         DispatchQueue.main.async {
-        
+
             UIView.animate(withDuration: 0.1, animations: {
-                cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                cell.bgImageView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             }, completion: { (_) in
                 let vc = StoreDetailViewController(storeItem: self.dataList[indexPath.section])
-                
+
                 vc.transitioningDelegate = self
-                
+
                 self.animatedTransition.itemCell = cell
                 self.present(vc, animated: true, completion: {
                     cell.bgImageView.alpha = 1
+                    cell.bgImageView.transform = CGAffineTransform.identity
                 })
             })
 
-            
+
         }
     }
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
 //        print(#function)
-        let cell = tableView.cellForRow(at: indexPath)
+        let cell = tableView.cellForRow(at: indexPath) as! StoreCell
         UIView.animate(withDuration: 0.2) {
-            cell?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            cell.bgImageView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         }
         return true
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 //        print(#function)
-        let cell = tableView.cellForRow(at: indexPath)
+        let cell = tableView.cellForRow(at: indexPath) as! StoreCell
         UIView.animate(withDuration: 0.2) {
-            cell?.transform = CGAffineTransform(scaleX: 1, y: 1)
+            cell.bgImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
     }
 
