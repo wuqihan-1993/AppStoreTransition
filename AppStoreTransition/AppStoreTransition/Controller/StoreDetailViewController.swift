@@ -143,14 +143,23 @@ extension StoreDetailViewController {
             self.view.layer.cornerRadius = cornerRadius
            
         }else {
-            edgePanGesture.isEnabled = false
-            self.view.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*minScale, height: UIScreen.main.bounds.height*minScale)
-            self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
-            self.view.layoutIfNeeded()
-            print("layoutIfNeeded")
-            print("\(edgePanGesture.state.rawValue)")
-            isDismiss = true
-            dismiss(animated: true, completion: nil)
+            
+
+            if isDismiss == false {
+                
+                print("dismiss")
+                
+                isDismiss = true
+                edgePanGesture.isEnabled = false
+                self.view.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*minScale, height: UIScreen.main.bounds.height*minScale)
+                self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
+                self.view.layoutIfNeeded()
+                
+                
+                dismiss(animated: true) {
+                    self.isDismiss = false
+                }
+            }
             return
         }
         
