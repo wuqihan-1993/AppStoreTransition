@@ -81,7 +81,7 @@ class StoreCell: UITableViewCell {
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
+            
         }
 
         subTitleLabel.snp.makeConstraints { (make) in

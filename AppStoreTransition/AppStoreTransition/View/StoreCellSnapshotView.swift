@@ -12,8 +12,7 @@ import SnapKit
 class StoreCellSnapshotView: UIView {
     
     lazy var bgImageView: UIImageView = {
-        let imageView = UIImageView(frame: self.bounds)
-        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let imageView = UIImageView()
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
@@ -22,19 +21,17 @@ class StoreCellSnapshotView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 36*0.9)
+        label.font = UIFont.boldSystemFont(ofSize: 36)
         label.textColor = UIColor.white
         label.numberOfLines = 0
-        label.frame.origin = CGPoint(x: 20, y: 10)
         return label
     }()
     
     lazy var subTitleLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 20, y: self.bounds.height-21.5-20, width: 0, height: 0))
-        label.font = UIFont.boldSystemFont(ofSize: 18*0.9)
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = UIColor.white
         label.numberOfLines = 0
-        label.autoresizingMask = [UIView.AutoresizingMask.flexibleTopMargin,UIView.AutoresizingMask.flexibleLeftMargin]
         return label
     }()
     
@@ -53,9 +50,7 @@ class StoreCellSnapshotView: UIView {
         
         bgImageView.image = UIImage(named: storeItem.imageName)
         titleLabel.text = storeItem.title
-        titleLabel.sizeToFit()
         subTitleLabel.text = storeItem.subTitle
-        subTitleLabel.sizeToFit()
         setupUI()
     }
     
@@ -68,28 +63,55 @@ class StoreCellSnapshotView: UIView {
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         addSubview(closeButton)
-    }
-    
-    func updateAnimation() {
-        frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 1.45)
-        let fontSize: CGFloat = 36
-        let currentFontSize: CGFloat = titleLabel.font.pointSize
-        titleLabel.transform = CGAffineTransform(scaleX: fontSize/currentFontSize, y: fontSize/currentFontSize)
-        titleLabel.frame.origin = CGPoint(x: 20, y: 64)
         
-        let subTitleFont: CGFloat = 18
-        let currentSubTitleFont: CGFloat = subTitleLabel.font.pointSize
-        subTitleLabel.transform = CGAffineTransform(scaleX: subTitleFont/currentSubTitleFont, y: subTitleFont/currentSubTitleFont)
-        subTitleLabel.frame.origin = CGPoint(x: 20, y: bounds.height-20-21.5)
-        closeButton.frame.origin = CGPoint(x: bounds.width-36-20, y: 64)
-        closeButton.alpha = 1
+        bgImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(20)
+        }
+        subTitleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.bottom.equalToSuperview().offset(-20)
+        }
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+            make.width.height.equalTo(36)
+        }
     }
     
-    func dismissAnimation() {
+    func presentWillAnimated() {
+        self.snp.remakeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.width*1.45)
+        }
+        titleLabel.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(64)
+        }
+        closeButton.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(64)
+        }
+    }
+    func presetnAnimated() {
+//        titleLabel.transform = CGAffineTransform.identity
+//        subTitleLabel.transform = CGAffineTransform.identity
+    }
+    
+    func dismissWillAnimated() {
+        titleLabel.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+        }
+        closeButton.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(20)
+        }
+    }
+    
+    func dismissAnimated() {
         closeButton.alpha = 0
-        closeButton.frame.origin = CGPoint(x: bounds.width-36-20, y: 20)
-        titleLabel.frame.origin = CGPoint(x: 20, y: 10)
-        subTitleLabel.frame.origin = CGPoint(x: 20, y: bounds.height-20-21.5)
+//        titleLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+//        subTitleLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
     }
 
 }

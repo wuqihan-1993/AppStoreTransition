@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MoreViewController: UIViewController {
     
@@ -21,12 +22,27 @@ class MoreViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         view.addSubview(testView)
+        
+        testView.snp.remakeConstraints { (make) in
+            make.top.left.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width)
+            make.height.equalTo(UIScreen.main.bounds.width * 1.45)
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        testView.snp.remakeConstraints { (make) in
+            make.left.equalToSuperview().offset(38.7)
+            make.top.equalToSuperview().offset(609.926)
+            make.width.equalTo(336.6)
+            make.height.equalTo(464.4)
+        }
+        
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.8, options: UIView.AnimationOptions.curveLinear, animations: {
             
-            self.testView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 1.45)
+            self.view.layoutIfNeeded()
             //((0 0; 414 600.3)
             
         }) { (isComplete) in

@@ -53,7 +53,12 @@ extension AppStoreAnimatedTransition {
         snapshotView.layer.masksToBounds = true
         containerView.addSubview(toVc.view)
         containerView.addSubview(snapshotView)
-        
+        snapshotView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(cellNewRect.origin.x)
+            make.top.equalToSuperview().offset(cellNewRect.origin.y)
+            make.width.equalTo(cellNewRect.width)
+            make.height.equalTo(cellNewRect.height)
+        }
         
         let anim1 = CABasicAnimation(keyPath: "cornerRadius")
         anim1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
@@ -66,14 +71,20 @@ extension AppStoreAnimatedTransition {
         toVc.headerView.isHidden = true
         toVc.view.frame = cellNewRect
         toVc.view.layoutIfNeeded()
+        containerView.layoutIfNeeded()
+        
+        self.snapshotView.presentWillAnimated()
         
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
             
-            self.snapshotView.updateAnimation()
+            self.snapshotView.layoutIfNeeded()
+            containerView.layoutIfNeeded()
+            self.snapshotView.presetnAnimated()
             let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
             tabBar.frame.origin.y = UIScreen.main.bounds.height
             toVc.view.frame = UIScreen.main.bounds
             toVc.view.layoutIfNeeded()
+            
         }) { (isComplete) in
             transitionContext.completeTransition(true)
             self.snapshotView.removeFromSuperview()
@@ -100,36 +111,81 @@ extension AppStoreAnimatedTransition {
         let containerView = transitionContext.containerView
         
         fromVc.headerView.isHidden = true
+        itemCell.isHidden = true
+        
+        let snapshotViewCurrentRect = containerView.convert(fromVc.headerView.frame, from: fromVc.headerView.superview)
+        let snapshotTargetRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
+        
         containerView.addSubview(toVc.view)
         containerView.addSubview(fromVc.view)
         containerView.addSubview(snapshotView)
         
-        itemCell.isHidden = true
+        snapshotView.snp.remakeConstraints { (make) in
+            make.top.equalToSuperview().offset(snapshotViewCurrentRect.origin.y)
+            make.left.equalToSuperview().offset(snapshotViewCurrentRect.origin.x)
+            make.width.equalTo(snapshotViewCurrentRect.width)
+            make.height.equalTo(snapshotViewCurrentRect.height)
+        }
         
-        let subTitleLabelFrame = self.snapshotView.subTitleLabel.frame
-        self.snapshotView.frame = containerView.convert(fromVc.headerView.frame, from: fromVc.headerView.superview)
-        self.snapshotView.subTitleLabel.frame = subTitleLabelFrame
-        self.snapshotView.layoutIfNeeded()
         containerView.layoutIfNeeded()
-        let cellToRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
-        fromVc.view.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+        snapshotView.dismissWillAnimated()
+        snapshotView.snp.remakeConstraints { (make) in
+            make.left.equalToSuperview().offset(snapshotTargetRect.origin.x)
+            make.top.equalToSuperview().offset(snapshotTargetRect.origin.y)
+            //            make.right.equalToSuperview().offset(-snapshotTargetRect.origin.y)
+            make.height.equalTo(snapshotTargetRect.height)
+            make.width.equalTo(snapshotTargetRect.width)
+        }
+    
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveLinear, animations: {
             
-            self.snapshotView.frame = cellToRect
-            self.snapshotView.dismissAnimation()
-            fromVc.view.frame = cellToRect
+            containerView.layoutIfNeeded()
+            self.snapshotView.dismissAnimated()
+            
+            fromVc.view.frame = snapshotTargetRect
             fromVc.view.layoutIfNeeded()
-
             
             let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
             tabBar.frame.origin.y = UIScreen.main.bounds.height - tabBar.bounds.height
             
+            
         }) { (isComplete) in
-        
             transitionContext.completeTransition(true)
             self.itemCell.isHidden = false
         }
+        
+//        fromVc.headerView.isHidden = true
+//        containerView.addSubview(toVc.view)
+//        containerView.addSubview(fromVc.view)
+//        containerView.addSubview(snapshotView)
+//
+//        itemCell.isHidden = true
+//
+//        let subTitleLabelFrame = self.snapshotView.subTitleLabel.frame
+//        self.snapshotView.frame = containerView.convert(fromVc.headerView.frame, from: fromVc.headerView.superview)
+//        self.snapshotView.subTitleLabel.frame = subTitleLabelFrame
+//        self.snapshotView.layoutIfNeeded()
+//        containerView.layoutIfNeeded()
+//        let cellToRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
+//        fromVc.view.layoutIfNeeded()
+//
+//        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+//
+//            self.snapshotView.frame = cellToRect
+//            self.snapshotView.dismissAnimation()
+//            fromVc.view.frame = cellToRect
+//            fromVc.view.layoutIfNeeded()
+//
+//
+//            let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
+//            tabBar.frame.origin.y = UIScreen.main.bounds.height - tabBar.bounds.height
+//
+//        }) { (isComplete) in
+//
+//            transitionContext.completeTransition(true)
+//            self.itemCell.isHidden = false
+//        }
        
     }
 }
