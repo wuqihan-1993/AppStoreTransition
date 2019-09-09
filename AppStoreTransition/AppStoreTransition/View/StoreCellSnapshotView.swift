@@ -83,6 +83,15 @@ class StoreCellSnapshotView: UIView {
     }
     
     func presentWillAnimated() {
+        
+        let anim1 = CABasicAnimation(keyPath: "cornerRadius")
+        anim1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        anim1.fromValue = 10
+        anim1.toValue = 0
+        anim1.duration = 0.8
+        anim1.isRemovedOnCompletion = false
+        bgImageView.layer.add(anim1, forKey: "cornerRadius")
+        
         self.snp.remakeConstraints { (make) in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(UIScreen.main.bounds.width*1.45)
@@ -93,10 +102,11 @@ class StoreCellSnapshotView: UIView {
         closeButton.snp.updateConstraints { (make) in
             make.top.equalToSuperview().offset(64)
         }
+        
+        closeButton.alpha = 0
     }
     func presetnAnimated() {
-//        titleLabel.transform = CGAffineTransform.identity
-//        subTitleLabel.transform = CGAffineTransform.identity
+        closeButton.alpha = 1
     }
     
     func dismissWillAnimated() {
@@ -110,8 +120,6 @@ class StoreCellSnapshotView: UIView {
     
     func dismissAnimated() {
         closeButton.alpha = 0
-//        titleLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-//        subTitleLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
     }
 
 }

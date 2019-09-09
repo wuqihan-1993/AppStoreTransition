@@ -59,15 +59,7 @@ extension AppStoreAnimatedTransition {
             make.width.equalTo(cellNewRect.width)
             make.height.equalTo(cellNewRect.height)
         }
-        
-        let anim1 = CABasicAnimation(keyPath: "cornerRadius")
-        anim1.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        anim1.fromValue = 10
-        anim1.toValue = 0
-        anim1.duration = 0.8
-        anim1.isRemovedOnCompletion = false
-        snapshotView.bgImageView.layer.add(anim1, forKey: "cornerRadius")
-        
+
         toVc.headerView.isHidden = true
         toVc.view.frame = cellNewRect
         toVc.view.layoutIfNeeded()
@@ -133,7 +125,6 @@ extension AppStoreAnimatedTransition {
         snapshotView.snp.remakeConstraints { (make) in
             make.left.equalToSuperview().offset(snapshotTargetRect.origin.x)
             make.top.equalToSuperview().offset(snapshotTargetRect.origin.y)
-            //            make.right.equalToSuperview().offset(-snapshotTargetRect.origin.y)
             make.height.equalTo(snapshotTargetRect.height)
             make.width.equalTo(snapshotTargetRect.width)
         }

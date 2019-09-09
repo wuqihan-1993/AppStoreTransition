@@ -33,6 +33,8 @@ class StoreDetailViewController: UIViewController {
         let scrollView = UIScrollView(frame: UIScreen.main.bounds)
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.backgroundColor = UIColor.white
+        scrollView.bounces = false
+        scrollView.delegate = self
         return scrollView
     }()
     
@@ -47,10 +49,7 @@ class StoreDetailViewController: UIViewController {
         label.numberOfLines = 0
         label.text = self.storeItem.content + self.storeItem.content 
         label.backgroundColor = UIColor.white
-//        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.contentMode = .center
-        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.8
         return label
     }()
     
@@ -75,6 +74,8 @@ class StoreDetailViewController: UIViewController {
         edgePanGesture.edges = UIRectEdge.left
         scrollView.addGestureRecognizer(edgePanGesture)
         
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
+//        scrollView.addGestureRecognizer(panGesture)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -145,6 +146,7 @@ extension StoreDetailViewController {
             self.view.frame.size.height = UIScreen.main.bounds.height * scale
             self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
             contentLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+            contentLabel.transform = CGAffineTransform(translationX: 0, y: 0)
             let cornerRadius = (1.0-scale)/(1-minScale)*20
             self.view.layer.cornerRadius = cornerRadius
            
@@ -193,4 +195,18 @@ extension StoreDetailViewController {
         
     }
     
+    @objc private func  panGestureAction(_ edgePanGesture: UIPanGestureRecognizer) {
+        print(#function)
+    }
+
+    
+}
+
+extension StoreDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        
+    }
 }
