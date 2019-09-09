@@ -45,7 +45,7 @@ class StoreDetailViewController: UIViewController {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = self.storeItem.content + self.storeItem.content + self.storeItem.content + self.storeItem.content
+        label.text = self.storeItem.content + self.storeItem.content 
         label.backgroundColor = UIColor.white
 //        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.contentMode = .center
