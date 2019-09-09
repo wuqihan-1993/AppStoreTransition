@@ -77,7 +77,7 @@ extension AppStoreAnimatedTransition {
         }) { (isComplete) in
             transitionContext.completeTransition(true)
             self.snapshotView.removeFromSuperview()
-            self.itemCell.transform = CGAffineTransform(scaleX: 1, y: 1)
+          
             toVc.headerView.isHidden = false
             containerView.insertSubview(fromVc!.view, belowSubview: toVc.view)
             let blur = UIBlurEffect(style: .light)

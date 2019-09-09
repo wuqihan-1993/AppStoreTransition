@@ -24,6 +24,7 @@ class StoreCell: UITableViewCell {
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
+        imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth,UIView.AutoresizingMask.flexibleHeight]
         return imageView
     }()
     
@@ -63,15 +64,6 @@ class StoreCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-//    override func layoutSubviews() {
-//        print(#function)
-//        super.layoutSubviews()
-//        var frame = contentView.frame
-//        frame.size.width = frame.size.width*0.9
-//        frame.origin.x = center.x - (frame.size.width/2)
-//        contentView.frame = frame
-//    }
-    
     private func setupUI() {
         selectionStyle = .none
         
@@ -79,21 +71,24 @@ class StoreCell: UITableViewCell {
         bgImageView.addSubview(titleLabel)
         bgImageView.addSubview(subTitleLabel)
 
-        bgImageView.translatesAutoresizingMaskIntoConstraints = false
-        bgImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        bgImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        bgImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-        bgImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        bgImageView.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+        }
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: bgImageView.topAnchor, constant: 10).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: bgImageView.leftAnchor, constant: 20).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: bgImageView.rightAnchor, constant: -20).isActive = true
-
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.leftAnchor.constraint(equalTo: bgImageView.leftAnchor, constant: 20).isActive = true
-        subTitleLabel.rightAnchor.constraint(equalTo: bgImageView.rightAnchor, constant: -20).isActive = true
-        subTitleLabel.bottomAnchor.constraint(equalTo: bgImageView.bottomAnchor, constant: -20).isActive = true
+        subTitleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+        }
     }
 
 }
