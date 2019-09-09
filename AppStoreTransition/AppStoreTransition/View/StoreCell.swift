@@ -76,8 +76,8 @@ class StoreCell: UITableViewCell {
         selectionStyle = .none
         
         contentView.addSubview(bgImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subTitleLabel)
+        bgImageView.addSubview(titleLabel)
+        bgImageView.addSubview(subTitleLabel)
 
         bgImageView.translatesAutoresizingMaskIntoConstraints = false
         bgImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -86,14 +86,14 @@ class StoreCell: UITableViewCell {
         bgImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 40).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -40).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: bgImageView.topAnchor, constant: 10).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: bgImageView.leftAnchor, constant: 20).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: bgImageView.rightAnchor, constant: -20).isActive = true
 
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 40).isActive = true
-        subTitleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -40).isActive = true
-        subTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        subTitleLabel.leftAnchor.constraint(equalTo: bgImageView.leftAnchor, constant: 20).isActive = true
+        subTitleLabel.rightAnchor.constraint(equalTo: bgImageView.rightAnchor, constant: -20).isActive = true
+        subTitleLabel.bottomAnchor.constraint(equalTo: bgImageView.bottomAnchor, constant: -20).isActive = true
     }
 
 }

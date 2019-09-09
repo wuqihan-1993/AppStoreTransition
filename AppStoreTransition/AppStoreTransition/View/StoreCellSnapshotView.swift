@@ -22,7 +22,7 @@ class StoreCellSnapshotView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 36)
+        label.font = UIFont.boldSystemFont(ofSize: 36*0.9)
         label.textColor = UIColor.white
         label.numberOfLines = 0
         label.frame.origin = CGPoint(x: 20, y: 10)
@@ -31,9 +31,10 @@ class StoreCellSnapshotView: UIView {
     
     lazy var subTitleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 20, y: self.bounds.height-21.5-20, width: 0, height: 0))
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 18*0.9)
         label.textColor = UIColor.white
         label.numberOfLines = 0
+        label.autoresizingMask = [UIView.AutoresizingMask.flexibleTopMargin,UIView.AutoresizingMask.flexibleLeftMargin]
         return label
     }()
     
@@ -71,7 +72,14 @@ class StoreCellSnapshotView: UIView {
     
     func updateAnimation() {
         frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 1.45)
+        let fontSize: CGFloat = 36
+        let currentFontSize: CGFloat = titleLabel.font.pointSize
+        titleLabel.transform = CGAffineTransform(scaleX: fontSize/currentFontSize, y: fontSize/currentFontSize)
         titleLabel.frame.origin = CGPoint(x: 20, y: 64)
+        
+        let subTitleFont: CGFloat = 18
+        let currentSubTitleFont: CGFloat = subTitleLabel.font.pointSize
+        subTitleLabel.transform = CGAffineTransform(scaleX: subTitleFont/currentSubTitleFont, y: subTitleFont/currentSubTitleFont)
         subTitleLabel.frame.origin = CGPoint(x: 20, y: bounds.height-20-21.5)
         closeButton.frame.origin = CGPoint(x: bounds.width-36-20, y: 64)
         closeButton.alpha = 1

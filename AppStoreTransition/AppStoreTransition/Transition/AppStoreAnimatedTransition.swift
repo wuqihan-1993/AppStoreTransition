@@ -106,8 +106,11 @@ extension AppStoreAnimatedTransition {
         
         itemCell.isHidden = true
         
+        let subTitleLabelFrame = self.snapshotView.subTitleLabel.frame
         self.snapshotView.frame = containerView.convert(fromVc.headerView.frame, from: fromVc.headerView.superview)
-        
+        self.snapshotView.subTitleLabel.frame = subTitleLabelFrame
+        self.snapshotView.layoutIfNeeded()
+        containerView.layoutIfNeeded()
         let cellToRect = containerView.convert(itemCell.bgImageView.frame, from: itemCell.bgImageView.superview)
         fromVc.view.layoutIfNeeded()
         
@@ -117,15 +120,13 @@ extension AppStoreAnimatedTransition {
             self.snapshotView.dismissAnimation()
             fromVc.view.frame = cellToRect
             fromVc.view.layoutIfNeeded()
-//            containerView.layoutIfNeeded
+
             
             let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
             tabBar.frame.origin.y = UIScreen.main.bounds.height - tabBar.bounds.height
             
         }) { (isComplete) in
-            
-//            self.snapshotView?.removeFromSuperview()
-//            fromVc.view.removeFromSuperview()
+        
             transitionContext.completeTransition(true)
             self.itemCell.isHidden = false
         }

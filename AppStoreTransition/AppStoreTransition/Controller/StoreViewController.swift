@@ -61,7 +61,7 @@ class StoreViewController: UIViewController {
 extension StoreViewController {
     private func setupData() {
         for i in 0...9 {
-            let storeItem = StoreItemModel(title: "talk is cheap,\nshow me thecode", subTitle: "Hello World!", imageName: "image\(i)", content: "史蒂夫·乔布斯 [1]  （Steve Jobs，1955年2月24日—2011年10月5日 [2]  ），出生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。 [3]\n\n1976年4月1日，乔布斯签署了一份合同，决定成立一家电脑公司。 [1]  1977年4月，乔布斯在美国第一次计算机展览会展示了苹果Ⅱ号样机。1997年苹果推出iMac，创新的外壳颜色透明设计使得产品大卖，并让苹果度过财政危机。 [4]  2011年8月24日，史蒂夫·乔布斯向苹果董事会提交辞职申请。 [5]\n\n乔布斯被认为是计算机业界与娱乐业界的标志性人物，他经历了苹果公司几十年的起落与兴衰，先后领导和推出了麦金塔计算机（Macintosh）、iMac、iPod、iPhone、iPad等风靡全球的电子产品，深刻地改变了现代通讯、娱乐、生活方式。乔布斯同时也是前Pixar动画公司的董事长及行政总裁。 [6]\n\n2011年10月5日，史蒂夫·乔布斯因患胰腺神经内分泌肿瘤 [7]  病逝，享年56岁。 [2] ")
+            let storeItem = StoreItemModel(title: "talk is cheap", subTitle: "Hello World!", imageName: "image\(i)", content: "史蒂夫·乔布斯 [1]  （Steve Jobs，1955年2月24日—2011年10月5日 [2]  ），出生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。 [3]\n\n1976年4月1日，乔布斯签署了一份合同，决定成立一家电脑公司。 [1]  1977年4月，乔布斯在美国第一次计算机展览会展示了苹果Ⅱ号样机。1997年苹果推出iMac，创新的外壳颜色透明设计使得产品大卖，并让苹果度过财政危机。 [4]  2011年8月24日，史蒂夫·乔布斯向苹果董事会提交辞职申请。 [5]\n\n乔布斯被认为是计算机业界与娱乐业界的标志性人物，他经历了苹果公司几十年的起落与兴衰，先后领导和推出了麦金塔计算机（Macintosh）、iMac、iPod、iPhone、iPad等风靡全球的电子产品，深刻地改变了现代通讯、娱乐、生活方式。乔布斯同时也是前Pixar动画公司的董事长及行政总裁。 [6]\n\n2011年10月5日，史蒂夫·乔布斯因患胰腺神经内分泌肿瘤 [7]  病逝，享年56岁。 [2] ")
             dataList.append(storeItem)
         }
         tableView.reloadData()
