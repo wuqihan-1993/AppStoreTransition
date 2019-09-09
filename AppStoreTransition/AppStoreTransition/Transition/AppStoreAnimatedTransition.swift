@@ -143,11 +143,16 @@ extension AppStoreAnimatedTransition {
             containerView.layoutIfNeeded()
             self.snapshotView.dismissAnimated()
             
+            self.snapshotView.subTitleLabel.transform = CGAffineTransform.identity
+            self.snapshotView.titleLabel.transform = CGAffineTransform.identity
+            
             fromVc.view.frame = snapshotTargetRect
             fromVc.view.layoutIfNeeded()
             
             let tabBar = (UIApplication.shared.keyWindow?.rootViewController as! UITabBarController).tabBar
             tabBar.frame.origin.y = UIScreen.main.bounds.height - tabBar.bounds.height
+            
+            
             
             
         }) { (isComplete) in

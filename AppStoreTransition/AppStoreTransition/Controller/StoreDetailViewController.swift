@@ -45,11 +45,12 @@ class StoreDetailViewController: UIViewController {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "totototot" + self.storeItem.content
+        label.text = self.storeItem.content + self.storeItem.content + self.storeItem.content + self.storeItem.content
         label.backgroundColor = UIColor.white
-        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.contentMode = .center
-        
+        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.8
         return label
     }()
     
@@ -122,7 +123,9 @@ class StoreDetailViewController: UIViewController {
         }
         
         contentLabel.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width)
             make.top.equalTo(headerView.snp.bottom).offset(30)
         }
 
@@ -137,26 +140,22 @@ extension StoreDetailViewController {
         let minScale: CGFloat = 0.83
         let scale = 1-progress*0.5
         if scale >= minScale {
-          
-            self.view.transform = CGAffineTransform(scaleX: scale, y: scale)
+        
+            self.view.frame.size.width = UIScreen.main.bounds.width * scale
+            self.view.frame.size.height = UIScreen.main.bounds.height * scale
+            self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
+            contentLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
             let cornerRadius = (1.0-scale)/(1-minScale)*20
             self.view.layer.cornerRadius = cornerRadius
            
         }else {
 
             edgePanGesture.isEnabled = false
-//            self.view.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*minScale, height: UIScreen.main.bounds.height*minScale)
-//            self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
-//            self.view.layoutIfNeeded()
-            print("layoutIfNeeded")
-            print("\(edgePanGesture.state.rawValue)")
             isDismiss = true
             dismiss(animated: true, completion: nil)
             
 
             if isDismiss == false {
-                
-                print("dismiss")
                 
                 isDismiss = true
                 edgePanGesture.isEnabled = false
@@ -181,7 +180,8 @@ extension StoreDetailViewController {
             if !isDismiss {
                 print("CGAffineTransform.identity")
                 UIView.animate(withDuration: 0.2) {
-                    self.view.transform = CGAffineTransform.identity
+                    self.view.frame = UIScreen.main.bounds
+                    self.contentLabel.transform = CGAffineTransform.identity
                 }
             }else {
                 print("dismiss")

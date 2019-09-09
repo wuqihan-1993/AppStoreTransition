@@ -21,7 +21,7 @@ class StoreCellSnapshotView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 36)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = UIColor.white
         label.numberOfLines = 0
         return label
