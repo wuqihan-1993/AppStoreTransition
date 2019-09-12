@@ -26,7 +26,7 @@ class MoreViewController: UIViewController {
         testView.snp.remakeConstraints { (make) in
             make.top.left.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
-            make.height.equalTo(UIScreen.main.bounds.width * 1.45)
+            make.height.equalTo(UIScreen.main.bounds.width * 1.34)
         }
         
     }

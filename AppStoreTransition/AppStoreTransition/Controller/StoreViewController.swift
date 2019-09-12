@@ -25,7 +25,7 @@ class StoreViewController: UIViewController {
         let tableView = UITableView(frame: UIScreen.main.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = (UIScreen.main.bounds.width - 40)*1.38
+        tableView.rowHeight = (UIScreen.main.bounds.width - 40)*1.22
         tableView.separatorStyle = .none
         tableView.register(StoreCell.self, forCellReuseIdentifier: StoreCell.description())
 

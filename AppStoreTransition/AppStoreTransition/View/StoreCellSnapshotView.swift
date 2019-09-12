@@ -94,7 +94,7 @@ class StoreCellSnapshotView: UIView {
         
         self.snp.remakeConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.width*1.45)
+            make.height.equalTo(UIScreen.main.bounds.width*1.34)
         }
         titleLabel.snp.updateConstraints { (make) in
             make.top.equalToSuperview().offset(64)

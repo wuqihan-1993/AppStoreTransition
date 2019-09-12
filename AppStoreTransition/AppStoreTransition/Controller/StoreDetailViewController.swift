@@ -123,7 +123,7 @@ class StoreDetailViewController: UIViewController {
         
         headerView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(headerView.snp.width).multipliedBy(1.45)
+            make.height.equalTo(headerView.snp.width).multipliedBy(1.34)
             make.centerX.equalToSuperview()
         }
         
