@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="-305.79710144927537" y="64.955357142857139"/>
         </scene>
-        <!--today-->
+        <!--Store View Controller-->
         <scene sceneID="jdn-7k-42E">
             <objects>
                 <viewController id="ag6-1D-D31" customClass="StoreViewController" customModule="AppStoreTransition" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,7 +42,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="GC6-EV-zWg"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="today" id="568-vB-obL"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="568-vB-obL"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joN-nH-Hjk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

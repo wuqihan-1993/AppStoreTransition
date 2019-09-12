@@ -33,14 +33,15 @@ class StoreDetailViewController: UIViewController {
         let scrollView = UIScrollView(frame: UIScreen.main.bounds)
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.backgroundColor = UIColor.white
-        scrollView.bounces = false
-        scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         return scrollView
     }()
     
     lazy var headerView: StoreDetailHeaderView = {
         let headerView = StoreDetailHeaderView(frame: CGRect.zero)
         headerView.item = self.storeItem
+        headerView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         return headerView
     }()
     
@@ -68,14 +69,17 @@ class StoreDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         view.backgroundColor = UIColor.orange
+        view.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         setupUI()
         
         let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePanGestureAction(_:)))
         edgePanGesture.edges = UIRectEdge.left
-        scrollView.addGestureRecognizer(edgePanGesture)
+        view.addGestureRecognizer(edgePanGesture)
         
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
-//        scrollView.addGestureRecognizer(panGesture)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
+        view.addGestureRecognizer(panGesture)
+        panGesture.delegate = self
+        panGesture.require(toFail: edgePanGesture)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -138,10 +142,22 @@ extension StoreDetailViewController {
  
     @objc private func  edgePanGestureAction(_ edgePanGesture: UIScreenEdgePanGestureRecognizer) {
         let progress = edgePanGesture.translation(in: view).x / view.bounds.width
+        zoomWithProgress(progress, gesture: edgePanGesture)
+        
+    }
+    
+    @objc private func  panGestureAction(_ panGesture: UIPanGestureRecognizer) {
+        if scrollView.contentOffset.y > 0 && view.frame.size.width == UIScreen.main.bounds.width  {return}
+        let progress = panGesture.translation(in: view).y / view.bounds.height
+        zoomWithProgress(progress, gesture: panGesture)
+    }
+
+    private func zoomWithProgress(_ progress: CGFloat,gesture: UIGestureRecognizer) {
+        print(#function)
         let minScale: CGFloat = 0.83
         let scale = 1-progress*0.5
         if scale >= minScale {
-        
+            
             self.view.frame.size.width = UIScreen.main.bounds.width * scale
             self.view.frame.size.height = UIScreen.main.bounds.height * scale
             self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
@@ -149,18 +165,18 @@ extension StoreDetailViewController {
             contentLabel.transform = CGAffineTransform(translationX: 0, y: 0)
             let cornerRadius = (1.0-scale)/(1-minScale)*20
             self.view.layer.cornerRadius = cornerRadius
-           
+            
         }else {
-
-            edgePanGesture.isEnabled = false
+            
+            gesture.isEnabled = false
             isDismiss = true
             dismiss(animated: true, completion: nil)
             
-
+            
             if isDismiss == false {
                 
                 isDismiss = true
-                edgePanGesture.isEnabled = false
+                gesture.isEnabled = false
                 self.view.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*minScale, height: UIScreen.main.bounds.height*minScale)
                 self.view.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height*0.5)
                 self.view.layoutIfNeeded()
@@ -173,7 +189,7 @@ extension StoreDetailViewController {
             return
         }
         
-        switch edgePanGesture.state {
+        switch gesture.state {
         case .began:
             break
         case .changed:
@@ -192,21 +208,13 @@ extension StoreDetailViewController {
         default:
             break
         }
-        
     }
-    
-    @objc private func  panGestureAction(_ edgePanGesture: UIPanGestureRecognizer) {
-        print(#function)
-    }
-
     
 }
 
-extension StoreDetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        
+
+extension StoreDetailViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer == scrollView.panGestureRecognizer
     }
 }
