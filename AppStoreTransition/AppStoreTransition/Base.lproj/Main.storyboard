@@ -13,16 +13,10 @@
         <!--more-->
         <scene sceneID="eYP-4B-1Se">
             <objects>
-                <viewController id="esI-10-1mP" customClass="MoreViewController" customModule="AppStoreTransition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="esI-10-1mP" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vq2-2l-h5q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JWV-PP-kSX">
-                                <rect key="frame" x="44" y="125" width="325" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6L0-45-5k4"/>
                     </view>

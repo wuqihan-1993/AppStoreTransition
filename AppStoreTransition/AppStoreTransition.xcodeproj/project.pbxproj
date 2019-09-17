@@ -19,7 +19,6 @@
 		E3EDDB042320C9D000AF6219 /* StoreItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB032320C9D000AF6219 /* StoreItemModel.swift */; };
 		E3EDDB072320EE0800AF6219 /* AppStoreAnimatedTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB062320EE0800AF6219 /* AppStoreAnimatedTransition.swift */; };
 		E3EDDB092321EAB400AF6219 /* StoreCellSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB082321EAB400AF6219 /* StoreCellSnapshotView.swift */; };
-		E3EDDB0B2321F98500AF6219 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDDB0A2321F98500AF6219 /* MoreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		E3EDDB032320C9D000AF6219 /* StoreItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreItemModel.swift; sourceTree = "<group>"; };
 		E3EDDB062320EE0800AF6219 /* AppStoreAnimatedTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreAnimatedTransition.swift; sourceTree = "<group>"; };
 		E3EDDB082321EAB400AF6219 /* StoreCellSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCellSnapshotView.swift; sourceTree = "<group>"; };
-		E3EDDB0A2321F98500AF6219 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +118,6 @@
 			children = (
 				E3EDDAE62320975E00AF6219 /* StoreViewController.swift */,
 				E3EDDAFE2320C88300AF6219 /* StoreDetailViewController.swift */,
-				E3EDDB0A2321F98500AF6219 /* MoreViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -256,7 +253,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3EDDB0B2321F98500AF6219 /* MoreViewController.swift in Sources */,
 				E3EDDAF72320976E00AF6219 /* StoreCell.swift in Sources */,
 				E3EDDAE72320975E00AF6219 /* StoreViewController.swift in Sources */,
 				E3EDDAE52320975E00AF6219 /* AppDelegate.swift in Sources */,
